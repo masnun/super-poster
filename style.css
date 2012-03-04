@@ -1,0 +1,39 @@
+body {
+    font-family: 'Inder', sans-serif;
+}
+
+.left {
+    float: left;
+    width: 40%;
+}
+
+#notification {
+    color: #8a2be2;
+    margin-top: 10px;
+    font-family: monospace;
+    font-weight: bold;
+
+}
+
+.right {
+    padding-top: 30px;
+}
+
+#groups {
+    margin-top: 20px;
+}
+
+h3 {
+
+    display: inline;
+}
+
+#logo {
+    float: left;
+}
+
+#footer {
+    position: fixed;
+    bottom: 10px;
+
+}

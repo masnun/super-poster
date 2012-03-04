@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Super Poster</title>
+    <link href='http://fonts.googleapis.com/css?family=Inder' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="core.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId:'263839747012905', // App ID
+            channelUrl:'http://masnun.net/facebook-app/channel.html', // Channel File
+            status:true, // check login status
+            cookie:true, // enable cookies to allow the server to access the session
+            xfbml:true  // parse XFBML
+        });
+
+        // Additional initialization code here
+    };
+
+    // Load the SDK Asynchronously
+    (function (d) {
+        var js, id = 'facebook-jssdk';
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
+</script>
+
+<img src="icon.jpg" height="100px" width="100px" id="logo"/>
+<br/>
+
+<h3>Super Poster</h3><br/>
+Post to multiple groups in one click!
+
+<div style="clear: both;"></div>
+<div class="left">
+    <strong>Actions:</strong><br/>
+    <input id="login" type="button" disabled="disabled" onclick="login()" value="Login">
+    <input id="get_groups" type="button" disabled="disabled" onclick="getGroups()" value="Load Groups">
+
+    <div id="notification"></div>
+    <br/><br/>
+    <strong>Your Message:</strong><br/>
+    <textarea id="msg" cols="50" rows="10"></textarea><br/>
+    <input id="post" type="button" disabled="disabled" onclick="sendPosts()" value="Post to Groups">
+</div>
+<div class="right">
+    <strong>Groups:</strong>
+
+    <div id="groups">
+        <i>No groups loaded yet!</i><br/><br/>
+
+        1) Login <br/>
+        2) Click "Load Groups"<br/>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<div id="footer">&copy Abu Ashraf Masnun - 2011</div>
+</body>
+</html>
