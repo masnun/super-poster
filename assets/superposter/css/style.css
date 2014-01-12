@@ -23,3 +23,8 @@ div#groups {
 div.group-list {
     margin-top: 60px;
 }
+
+div.footer {
+    text-align: center;
+    margin-top: 60px;
+}

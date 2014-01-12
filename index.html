@@ -45,9 +45,7 @@
 
         FB.getLoginStatus(function (response) {
             if (response.status == 'connected') {
-                show_notification('Welcome Back!', 'We have automatically logged you in, now you can load your groups.');
-                $("#get_groups").removeAttr('disabled');
-                $("#login").attr('disabled', 'disabled');
+                performPostLoginTasks()
             }
         });
     };
@@ -80,8 +78,6 @@
     <div class="row">
         <div class="col-md-5">
             <div class="dashboard">
-                <strong>Actions:</strong><br/>
-
 
                 <input id="appIdButton" data-toggle="modal" data-target="#appIdModal" class="btn btn-danger"
                        type="button"
@@ -89,8 +85,6 @@
 
                 <input id="login" class="btn btn-success" type="button" disabled="disabled" onclick="login()"
                        value="Login">
-                <input id="get_groups" class="btn btn-info" type="button" disabled="disabled" onclick="getGroups()"
-                       value="Load Groups">
 
                 <br/><br/>
 
@@ -108,12 +102,6 @@
                            value="Post to Groups">
                 </div>
 
-                <div class="footer">
-                    <br/><br/>
-                    <strong>&copy;</strong> Crafted with Love @ <a href="http://transcendio.net">Transcendio</a> <br/>
-                    <strong>Email:</strong> masnun [at] transcendio.net with queries. <br/>
-                    Source code is on <a href="https://github.com/masnun/super-poster">Github Repo</a> <br/>
-                </div>
 
             </div>
 
@@ -121,7 +109,7 @@
 
         <div class="col-md-7">
             <div class="group-list">
-                <strong>Group List:</strong> <br/><br/>
+                <strong>Group List:</strong> <br/>
 
                 <div id="groups">
                     In this area, we shall display the list of the groups you are a member of.
@@ -130,8 +118,9 @@
 
                     Please co-operate with us by taking the following steps: <br/><br/>
 
+
                     <span id="spam-notice">
-                    0) Set an Application ID. <a data-toggle="modal" data-target="#spamNoticeModal">Read this</a>
+                    (#) Set an Application ID. <a data-toggle="modal" data-target="#spamNoticeModal">Read this</a>
                         to know why it is required and how to do it. If you are not much into technology, we have
                         you covered as well. Please read the note and you will know what to do.
                         <br/><br/>
@@ -139,10 +128,8 @@
                     </span>
 
 
-                    1) Login. If this is the first time, you will need to give some permissions to the app <br/><br/>
-                    2) After logging in, click "Load Groups"<br/>
+                    (#) Login. If this is the first time, you will need to give some permissions to the app <br/><br/>
 
-                    <br/><br/>
 
                     You can use the buttons on the left side to follow the above steps. Hope you enjoy
                     using this app as much as we do! :)
@@ -152,6 +139,12 @@
         </div>
     </div>
 
+
+    <div class="row footer">
+        <strong>&copy;</strong> Crafted with Love @ <a href="http://transcendio.net">Transcendio</a> |
+        <strong>Email:</strong> masnun [at] transcendio.net with queries. |
+        Source code is on <a href="https://github.com/masnun/super-poster">Github Repo</a> <br/>
+    </div>
 
 </div>
 
@@ -173,6 +166,8 @@
     ga('send', 'pageview');
 
 </script>
+
+<!-- modals -->
 
 
 <div class="modal fade" id="appIdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

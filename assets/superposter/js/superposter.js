@@ -2,14 +2,19 @@
 var blacklist = [];
 var appId = '';
 
+function performPostLoginTasks() {
+    show_notification('Authorization', 'You successfully logged in using Facebook. Now we can load your groups.');
+    $("#get_groups").removeAttr('disabled');
+    $("#login").hide();
+    getGroups();
+}
+
 
 function login() {
 
     FB.login(function (response) {
         if (response.authResponse) {
-            show_notification('Authorization', 'You successfully logged in using Facebook. Now we can load your groups.');
-            $("#get_groups").removeAttr('disabled');
-            $("#login").attr('disabled', 'disabled');
+            performPostLoginTasks();
         } else {
             show_notification('Authorization', 'We could not log you in to Facebook. We are very sad that it failed.', 'error');
         }
@@ -133,6 +138,7 @@ function setAppId() {
     $("#url").attr('href', url).html(url);
     $("#urlContainer").show();
     $("#login").removeAttr('disabled');
+    $("#appIdButton").val('Switch App ID');
 
 }
 
@@ -165,7 +171,6 @@ $(document).ready(function () {
     } else {
         $("#urlContainer").hide();
     }
-
 
 
 });
