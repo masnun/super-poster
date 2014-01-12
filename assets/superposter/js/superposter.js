@@ -1,3 +1,5 @@
+var blacklist = [];
+
 function login() {
 
     FB.login(function (response) {
@@ -10,6 +12,35 @@ function login() {
         }
     }, {scope: 'publish_stream,user_groups'});
 
+}
+
+function getBlacklist() {
+    blacklist = (function() {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': '/assets/superposter/js/blacklist.json',
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        })
+    })();
+}
+
+function checkBadwords(text) {
+    text = text.toLowerCase();
+    var x = 0;
+
+    while (x <= (blacklist.length - 1)) { 
+        if (text.search(blacklist[x]) !== -1) {
+            return true;
+            break;
+        }
+
+        x++;
+    }
 }
 
 function getGroups() {
@@ -27,6 +58,7 @@ function getGroups() {
         show_notification('Groups', 'Groups loaded. Select a few of them. Write a post and share with the selected groups', 'notice');
     });
 
+    getBlacklist();
 
 }
 
@@ -37,13 +69,18 @@ function addCheckbox(name, id) {
 }
 
 function makePost(groupId, message) {
-    FB.api("/" + groupId + "/feed", "post", {"message": message}, function (resp) {
-        if (resp.id) {
-            show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'", 'success');
-        } else {
-            show_notification('Failed', "Failed to post to the selected groups", 'error');
-        }
-    })
+    if (!checkBadwords(message)) {
+        FB.api("/" + groupId + "/feed", "post", {"message": message}, function (resp) {
+            if (resp.id) {
+                show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'", 'success');
+            } else {
+                show_notification('Failed', "Failed to post to the selected groups", 'error');
+            }
+        })
+    }
+    else {
+        show_notification('Failed', 'Possible Spam Detected', 'error');
+    }
 }
 
 function sendPosts() {
