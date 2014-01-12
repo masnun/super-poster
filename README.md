@@ -1,16 +1,24 @@
 Super Poster
 ============
 
-- __Author:__ Abu Ashraf Masnun
-- __Email:__ masnun@gmail.com
-- __Web:__ http://masnun.me
-
-
 ### What does it do? ###
 
 The application allows you to post to multiple facebook groups at a time.
 
 
-### What are the requirements? ###
+### Setting Up ###
 
-The application should run on any host since it doesn't use any server side programming languages. It is purely javascript based. Just change the app id and channel url in index.html to do your own branding :)
+* Create a new Facebook application. Edit `index.html` to change the Facebook `appId`. Facebook apps allow permissions based on domains. So if you don't update the appId with your own app's ID, it will not work. 
+
+* Please update `channelUrl` to reflect the full URL of `channel.html` file. For example: If you host super poster on http://super-poster.net, then set it like:
+
+		
+		channelUrl: 'http://super-poster.net/channel.html
+	
+	
+That should work :) 
+
+
+### Live Demo ### 
+
+Please check out : <a href="http://super-poster.net">http://super-poster.net</a>
