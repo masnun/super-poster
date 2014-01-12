@@ -1,24 +1,43 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <title>Super Poster</title>
-    <link href='http://fonts.googleapis.com/css?family=Inder' rel='stylesheet' type='text/css'>
+
+    <!-- javascript dependencies -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="core.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+
+    <!-- google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=New+Rocker' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Nova+Square' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet' type='text/css'>
+
+    <!-- bootstrap assets -->
+    <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css"/>
+
+    <!-- jquery growl -->
+    <link rel="stylesheet" href="assets/jquery.growl/stylesheets/jquery.growl.css">
+    <script type="text/javascript" src="assets/jquery.growl/javascripts/jquery.growl.js"></script>
+
+    <!-- super poster assets -->
+    <link rel="stylesheet" href="assets/superposter/css/style.css"/>
+    <script src="assets/superposter/js/superposter.js"></script>
+
 </head>
 <body>
+
+<!-- Facebook SDK -->
 
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId:'263839747012905', // App ID
-            channelUrl:'http://masnun.net/facebook-app/channel.html', // Channel File
-            status:true, // check login status
-            cookie:true, // enable cookies to allow the server to access the session
-            xfbml:true  // parse XFBML
+            appId: '263839747012905', // App ID
+            channelUrl: 'http://localhost/super-poster/channel.html', // Channel File
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
         });
 
         // Additional initialization code here
@@ -38,36 +57,69 @@
     }(document));
 </script>
 
-<img src="icon.jpg" height="100px" width="100px" id="logo"/>
-<br/>
 
-<h3>Super Poster</h3><br/>
-Post to multiple groups in one click!
+<!-- MAIN APP -->
 
-<div style="clear: both;"></div>
-<div class="left">
-    <strong>Actions:</strong><br/>
-    <input id="login" type="button" disabled="disabled" onclick="login()" value="Login">
-    <input id="get_groups" type="button" disabled="disabled" onclick="getGroups()" value="Load Groups">
 
-    <div id="notification"></div>
-    <br/><br/>
-    <strong>Your Message:</strong><br/>
-    <textarea id="msg" cols="50" rows="10"></textarea><br/>
-    <input id="post" type="button" disabled="disabled" onclick="sendPosts()" value="Post to Groups">
-</div>
-<div class="right">
-    <strong>Groups:</strong>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="title">Super Poster</h2>
+        </div>
+    </div>
 
-    <div id="groups">
-        <i>No groups loaded yet!</i><br/><br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <strong>Actions:</strong><br/>
+                <input id="login" class="btn btn-success" type="button" disabled="disabled" onclick="login()"
+                       value="Login">
+                <input id="get_groups" class="btn btn-info" type="button" disabled="disabled" onclick="getGroups()"
+                       value="Load Groups">
 
-        1) Login <br/>
-        2) Click "Load Groups"<br/>
+                <br/><br/>
+
+                <div id="message-box">
+                    <strong>Your Message:</strong><br/>
+                    <textarea id="msg" cols="50" rows="10"></textarea><br/><br/>
+                    <input id="post" class="btn btn-warning" type="button" disabled="disabled" onclick="sendPosts()"
+                           value="Post to Groups">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="group-list">
+                <strong>Group List:</strong> <br/><br/>
+
+                <div id="groups">
+                    In this area, we shall display the list of the groups you are a member of.
+                    But before we can fetch the list, we need you login to Facebook and authorize
+                    us for the action. <br/><br/>
+
+                    Please co-operate with us by taking the following actions: <br/>
+
+                    1) Login <br/>
+                    2) After loggin in, click "Load Groups"<br/>
+
+                    <br/><br/>
+
+                    You can use the buttons on the left side to follow the above steps. Hope you enjoy
+                    using this app as much as we do! :)
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row footer">
+        <br/><br/>
+        <strong>&copy;</strong> Crafted with Love @ <a href="http://transcendio.net">Transcendio</a> |
+        <strong>Email:</strong> masnun [at] transcendio.net with queries.
     </div>
 </div>
-
-<div style="clear: both;"></div>
-<div id="footer">&copy Abu Ashraf Masnun - 2011</div>
 </body>
 </html>
