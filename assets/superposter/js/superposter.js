@@ -21,11 +21,12 @@ function getGroups() {
         for (var x in data) {
             addCheckbox(data[x].name, data[x].id)
         }
-
+        
+        $("#post").removeAttr('disabled');
         show_notification('Groups', 'Groups loaded. Select a few of them. Write a post and share with the selected groups', 'notice');
     });
 
-    $("#post").removeAttr('disabled');
+
 }
 
 function addCheckbox(name, id) {
