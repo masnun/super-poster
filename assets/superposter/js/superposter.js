@@ -130,6 +130,7 @@ function setAppId() {
     var url = "http://super-poster.net/?appId=" + appId
     $("#url").attr('href', url).html(url);
     $("#urlContainer").show();
+    $("#login").removeAttr('disabled');
 
 }
 
@@ -146,7 +147,7 @@ function getQSParam(sParam) {
 }
 
 $(document).ready(function () {
-    $("#login").removeAttr('disabled');
+
     appId = getQSParam('appId');
     if (appId) {
         if (window.FB) {
@@ -158,6 +159,7 @@ $(document).ready(function () {
 
         $("#appIdButton").hide();
         $("#spam-notice").hide();
+        $("#login").removeAttr('disabled');
     } else {
         $("#urlContainer").hide();
     }
