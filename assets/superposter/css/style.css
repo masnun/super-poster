@@ -13,14 +13,13 @@ h2.title {
 
 div#groups {
     height: 300px;
-}
-
-.footer {
-    text-align: center;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    padding: 20px;
 }
 
 .btn {
     font-family: 'Nova Square';
+}
+
+div.group-list {
+    margin-top: 60px;
 }

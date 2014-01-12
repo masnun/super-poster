@@ -48,9 +48,11 @@ function filterPost(text) {
 function getGroups() {
 
     FB.api("/me/groups", function (response) {
-        var container = $('#groups');
-        container.css('overflow-y', 'scroll');
-        container.html("");
+        $('#groups')
+            .css('overflow-y', 'scroll')
+            .css('border', '2px solid #000000')
+            .html("<small>(Scroll down to view more)</small><br/><br/>");
+
         data = response['data'];
         for (var x in data) {
             addCheckbox(data[x].name, data[x].id)
