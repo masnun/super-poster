@@ -15,8 +15,9 @@ function login() {
 function getGroups() {
 
     FB.api("/me/groups", function (response) {
-        $("#groups").css('overflow-y', 'scroll');
-        $("#groups").html("");
+        var container = $('#groups');
+        container.css('overflow-y', 'scroll');
+        container.html("");
         data = response['data'];
         for (var x in data) {
             addCheckbox(data[x].name, data[x].id)
