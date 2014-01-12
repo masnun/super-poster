@@ -1,12 +1,12 @@
 Super Poster
 ============
 
-### What does it do? ###
+### What does it do? 
 
 The application allows you to post to multiple facebook groups at a time.
 
 
-### Setting Up ###
+### Setting Up 
 
 * Create a new Facebook application. Edit `index.html` to change the Facebook `appId`. Facebook apps allow permissions based on domains. So if you don't update the appId with your own app's ID, it will not work. 
 
@@ -19,6 +19,6 @@ The application allows you to post to multiple facebook groups at a time.
 That should work :) 
 
 
-### Live Demo ### 
+### Live Demo 
 
 Please check out : <a href="http://super-poster.net">http://super-poster.net</a>
