@@ -33,7 +33,7 @@
 <script>
     window.fbAsyncInit = function () {
 
-        console.log('appid: ' + window.appId);
+        //console.log('appid: ' + window.appId);
 
         FB.init({
             appId: window.appId, // App ID
@@ -43,7 +43,13 @@
             xfbml: true  // parse XFBML
         });
 
-        // Additional initialization code here
+        FB.getLoginStatus(function (response) {
+            if (response.status == 'connected') {
+                show_notification('Welcome Back!', 'We have automatically logged you in, now you can load your groups.');
+                $("#get_groups").removeAttr('disabled');
+                $("#login").attr('disabled', 'disabled');
+            }
+        });
     };
 
     // Load the SDK Asynchronously

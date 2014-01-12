@@ -59,7 +59,7 @@ function getGroups() {
         }
 
         $("#post").removeAttr('disabled');
-        show_notification('Groups', 'Groups loaded. Select a few of them. Write a post and share with the selected groups', 'notice');
+        show_notification('Groups', 'Groups loaded. Select a few of them. Write a post and share with the selected groups.', 'notice');
 
         loadBlacklist();
     });
@@ -77,9 +77,9 @@ function makePost(groupId, message) {
 
     FB.api("/" + groupId + "/feed", "post", {"message": message}, function (resp) {
         if (resp.id) {
-            show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'", 'success');
+            show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'.", 'success');
         } else {
-            show_notification('Failed', "Failed to post to the selected groups", 'error');
+            show_notification('Failed', "Failed to post to the selected groups.", 'error');
         }
     })
 
@@ -165,4 +165,7 @@ $(document).ready(function () {
     } else {
         $("#urlContainer").hide();
     }
+
+
+
 });
