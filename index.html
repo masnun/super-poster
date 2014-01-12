@@ -32,8 +32,11 @@
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function () {
+
+        console.log('appid: ' + window.appId);
+
         FB.init({
-            appId: '', // App ID
+            appId: window.appId, // App ID
             channelUrl: 'http://super-poster.net/channel.html', // Channel File
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
@@ -76,6 +79,12 @@
         <div class="col-md-6">
             <div class="dashboard">
                 <strong>Actions:</strong><br/>
+
+
+                <input id="appIdButton" data-toggle="modal" data-target="#appIdModal" class="btn btn-danger"
+                       type="button"
+                       value="Set App ID">
+
                 <input id="login" class="btn btn-success" type="button" disabled="disabled" onclick="login()"
                        value="Login">
                 <input id="get_groups" class="btn btn-info" type="button" disabled="disabled" onclick="getGroups()"
@@ -83,10 +92,17 @@
 
                 <br/><br/>
 
+                <div id="urlContainer">
+                    <strong>Your App URL:</strong><br/>
+                    <a id="url" href=""></a> (<a data-toggle="modal" data-target="#spamNoticeModal">What's this?</a>)
+
+                    <br/><br/>
+                </div>
+
                 <div id="message-box">
                     <strong>Your Message:</strong><br/>
                     <textarea id="msg" cols="50" rows="10"></textarea><br/><br/>
-                    <input id="post" class="btn btn-warning" type="button" disabled="disabled" onclick="sendPosts()"
+                    <input id="post" class="btn btn-warning" type="button" disabled="disabled" onclick="startPosting()"
                            value="Post to Groups">
                 </div>
 
@@ -103,9 +119,18 @@
                     But before we can fetch the list, we need you to login to Facebook and authorize
                     us for the actions. <br/><br/>
 
-                    Please co-operate with us by taking the following steps: <br/>
+                    Please co-operate with us by taking the following steps: <br/><br/>
 
-                    1) Login. If this is the first time, you will need to give some permissions to the app <br/>
+                    <span id="spam-notice">
+                    0) Set an Application ID. <a data-toggle="modal" data-target="#spamNoticeModal">Read this</a>
+                        to know why it is required and how to do it. If you are not much into technology, we have
+                        you covered as well. Please read the note and you will know what to do.
+                        <br/><br/>
+
+                    </span>
+
+
+                    1) Login. If this is the first time, you will need to give some permissions to the app <br/><br/>
                     2) After logging in, click "Load Groups"<br/>
 
                     <br/><br/>
@@ -145,6 +170,69 @@
     ga('send', 'pageview');
 
 </script>
+
+
+<div class="modal fade" id="appIdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="appIdModalLabel">Set Application ID</h4>
+            </div>
+            <div class="modal-body">
+                Enter your Facebook Application ID: <br/>
+                <input id="appIdInput" type="text"/><br/>
+
+                <br/>
+                You shall get a custom URL with the app ID preset when you press the "Save" button.
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="setAppId()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="spamNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="spamNoticeModalLabel">About Application ID</h4>
+            </div>
+            <div class="modal-body">
+                To reduce SPAM and misuse, we ask our users to set their own Application ID. Previously
+                we were providing our own application ID. Then we realized that if some malicious users
+                abused the system, we would be penalized for their crimes. And if our application gets
+                banned, it would also affect innocent users who didn't do anything. So we separated
+                the application ID part so that people can their own application IDs for their use.
+                So if you abuse the system, your application and/or developer account gets punished
+                not affecting other users. <br/><br/>
+
+                At the same time, we also kept in mind the user segment who are not developers, techies or geeks.
+                When you add an application ID, you also get a nice URL which you can share with the people you
+                trust so that they can use the same ID, without going through these hassles. <br/><br/>
+
+                If you are a developer and know how to generate an app ID,
+                please click the "Set App ID" button to set the ID. We will generate a nice URL for
+                you so that you can bookmark and/or pass it to other users. <br/><br/>
+
+                If you are not a developer and do not know how to do this, please ask a developer friend.
+                And remember, if you abuse the system, your friend might be held responsible for your crimes.
+                <br/><br/>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">I Understand</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </body>

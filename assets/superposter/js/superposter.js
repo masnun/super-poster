@@ -1,4 +1,7 @@
+// globals
 var blacklist = [];
+var appId = '';
+
 
 function login() {
 
@@ -14,33 +17,32 @@ function login() {
 
 }
 
-function getBlacklist() {
-    blacklist = (function() {
-        var json = null;
-        $.ajax({
-            'async': false,
-            'global': false,
-            'url': '/assets/superposter/js/blacklist.json',
-            'dataType': "json",
-            'success': function (data) {
-                json = data;
-            }
-        })
-    })();
+function loadBlacklist() {
+
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': 'blacklist.json',
+        'dataType': "json",
+        'success': function (data) {
+            blacklist = data;
+        }
+    })
+
 }
 
-function checkBadwords(text) {
+function filterPost(text) {
     text = text.toLowerCase();
     var x = 0;
 
-    while (x <= (blacklist.length - 1)) { 
+    while (x <= (blacklist.length - 1)) {
         if (text.search(blacklist[x]) !== -1) {
-            return true;
-            break;
+            return blacklist[x];
         }
-
         x++;
     }
+
+    return false;
 }
 
 function getGroups() {
@@ -53,12 +55,13 @@ function getGroups() {
         for (var x in data) {
             addCheckbox(data[x].name, data[x].id)
         }
-        
+
         $("#post").removeAttr('disabled');
         show_notification('Groups', 'Groups loaded. Select a few of them. Write a post and share with the selected groups', 'notice');
+
+        loadBlacklist();
     });
 
-    getBlacklist();
 
 }
 
@@ -69,32 +72,39 @@ function addCheckbox(name, id) {
 }
 
 function makePost(groupId, message) {
-    if (!checkBadwords(message)) {
-        FB.api("/" + groupId + "/feed", "post", {"message": message}, function (resp) {
-            if (resp.id) {
-                show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'", 'success');
-            } else {
-                show_notification('Failed', "Failed to post to the selected groups", 'error');
-            }
-        })
-    }
-    else {
-        show_notification('Failed', 'Possible Spam Detected', 'error');
-    }
+
+    FB.api("/" + groupId + "/feed", "post", {"message": message}, function (resp) {
+        if (resp.id) {
+            show_notification('Posted', "Posted to: '" + $("#groups").find("label[for=cb" + groupId + "]").html() + "'", 'success');
+        } else {
+            show_notification('Failed', "Failed to post to the selected groups", 'error');
+        }
+    })
+
 }
 
-function sendPosts() {
+function startPosting() {
     var message = $("#msg").val();
-    input_list = $("#groups").find('input')
-    for (var x in input_list) {
-        if (input_list[x].checked) {
-            makePost(input_list[x].value, message)
+    var blackListedWord = filterPost(message);
+
+    if (!blackListedWord) {
+        input_list = $("#groups").find('input')
+        for (var x in input_list) {
+            if (input_list[x].checked) {
+                makePost(input_list[x].value, message)
+            }
         }
     }
+    else {
+        show_notification('Blacklisted Word', 'Your post contains the word \'' + blackListedWord
+            + '\' which is in our blacklisted word list. Sorry, we can not allow this post!', 'error');
+    }
+
+
 }
 
 function show_notification(title, message, type) {
-    console.log(type);
+    //console.log(type);
     switch (type) {
         case undefined:
             $.growl({title: title, message: message });
@@ -113,6 +123,42 @@ function show_notification(title, message, type) {
     }
 }
 
+function setAppId() {
+    appId = $("#appIdInput").val();
+    $('#appIdModal').modal('hide');
+    fbAsyncInit();
+    var url = "http://super-poster.net/?appId=" + appId
+    $("#url").attr('href', url).html(url);
+    $("#urlContainer").show();
+
+}
+
+function getQSParam(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}
+
 $(document).ready(function () {
     $("#login").removeAttr('disabled');
+    appId = getQSParam('appId');
+    if (appId) {
+        if (window.FB) {
+            fbAsyncInit();
+        }
+
+        var url = "http://super-poster.net/?appId=" + appId
+        $("#url").attr('href', url).html(url)
+
+        $("#appIdButton").hide();
+        $("#spam-notice").hide();
+    } else {
+        $("#urlContainer").hide();
+    }
 });
